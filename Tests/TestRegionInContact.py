@@ -12,10 +12,10 @@ class TestRegionContact(BaseTest):
         self.home_page.click_contact()
 
         self.contacts_page = ContactsPage(self.driver)
-        region = self.contacts_page.current_region()
-        check_region = region == TestData.MY_REGION
-        self.my_logger.info(f"Check region: {'OK' if check_region else 'FAILED'}")
-        assert check_region, f"Check region failed {region}"
+
+        check_my_region = self.contacts_page.current_region() == TestData.MY_REGION
+        self.my_logger.info(f"Check my region: {'OK' if check_my_region else 'FAILED'}")
+        assert check_my_region, f"Check my region failed"
 
         check_partners = self.contacts_page.region_partners_is_visible()
         self.my_logger.info(f"Partners is visible: {'OK' if check_partners else 'FAILED'}")
@@ -25,6 +25,10 @@ class TestRegionContact(BaseTest):
         url = self.driver.current_url
 
         self.contacts_page.change_region()
+
+        check_region_changed = self.contacts_page.current_region() == TestData.CHANGE_REGION
+        self.my_logger.info(f"Region is changed : {'OK' if check_region_changed else 'FAILED'}")
+        assert check_region_changed, "Check region is changed failed "
 
         check_different_partners = first_partner != self.contacts_page.get_first_partner()
         self.my_logger.info(f"Partners is different: {'OK' if check_different_partners else 'FAILED'}")
