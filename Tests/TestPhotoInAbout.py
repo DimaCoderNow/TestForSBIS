@@ -20,7 +20,9 @@ class TestPhotoAbout(BaseTest):
         self.driver.switch_to.window(window_handles[-1])
 
         self.tensor_home_page = TensorHomePage(self.driver)
-        self.tensor_home_page.p_pow_people_is_visible()
+
+        self.my_logger.info(self.tensor_home_page.p_pow_people_is_visible())
+
         self.tensor_home_page.scroll_to_p_pow_people()
         self.tensor_home_page.click_about_in_p_pow_people()
         self.tensor_about_page = TensorAboutPage(self.driver)

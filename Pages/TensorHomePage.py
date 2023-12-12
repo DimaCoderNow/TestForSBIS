@@ -15,7 +15,7 @@ class TensorHomePage(BasePage):
         self.do_click(self.ABOUT)
 
     def p_pow_people_is_visible(self):
-        self.is_visible(self.P_POW_PEOPLE)
+        return self.is_visible(self.P_POW_PEOPLE)
 
     def scroll_to_p_pow_people(self):
         self.scroll_to_element(self.P_POW_PEOPLE)
