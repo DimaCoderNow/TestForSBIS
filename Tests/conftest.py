@@ -21,7 +21,7 @@ def init_driver(request):
 
 
 def test_logging():
-    log_path = "test.log"
+    log_path = "Tests/test.log"
     logger = logging.getLogger('selenium')
     logger.setLevel(logging.INFO)
     handler = logging.FileHandler(log_path)

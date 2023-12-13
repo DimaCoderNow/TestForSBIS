@@ -15,10 +15,11 @@ class BasePage:
         self.driver = driver
 
     def do_click(self, by_locator):
-        time.sleep(1)
+        time.sleep(2)
         WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator)).click()
 
     def get_element_text(self, by_locator):
+        time.sleep(1)
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
         return element.text
 
@@ -28,7 +29,7 @@ class BasePage:
 
     def is_visible(self, by_locator):
         try:
-            WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator))
+            WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located(by_locator))
             return True
         except TimeoutException:
             return False
@@ -39,7 +40,7 @@ class BasePage:
 
     def is_visible_elements(self, by_locator):
         try:
-            WebDriverWait(self.driver, 10).until(EC.visibility_of_all_elements_located(by_locator))
+            WebDriverWait(self.driver, 30).until(EC.visibility_of_all_elements_located(by_locator))
             return True
         except TimeoutException:
             return False
@@ -68,6 +69,7 @@ class BasePage:
                 file.write(response.content)
             file_size = round(os.path.getsize(download_path)/(1024.0 ** 2), 2)
             return download_path, file_size
+        return None, None
 
     def next_window_handles(self):
         window_handles = self.driver.window_handles

@@ -14,8 +14,11 @@ class TestDownloadPlugin(BaseTest):
         self.download_page = DownloadPage(self.driver)
         # Выбираем СБИС Плагин
         self.download_page.click_plugin_button()
-        # Скачиваем файл и получаем его размер
-        _, size_file = self.download_page.download_plugin()
+        # Скачиваем плагин и получаем его размер
+        path_file, size_file = self.download_page.download_plugin()
+        # Проверяем что плагин скачен
+        self.my_logger.info(f"File downloaded {'OK' if path_file else 'FAILED'}")
+        assert path_file, "File downloaded FAILED"
         # Получаем размер указанный на сайте
         size_in_site = self.download_page.get_size_file_in_site()
 

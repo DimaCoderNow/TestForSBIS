@@ -1,3 +1,5 @@
+import time
+
 from Config.config import TestData
 from Pages.BasePage import BasePage
 
@@ -17,5 +19,7 @@ class HomePage(BasePage):
         self.do_click(self.CONTACTS)
 
     def click_download_link(self):
+        time.sleep(1)
         self.scroll_to_element(self.DOWNLOAD_LINK)
         self.do_click(self.DOWNLOAD_LINK)
+

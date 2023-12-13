@@ -7,6 +7,7 @@ from Pages.BasePage import BasePage
 
 
 class DownloadPage(BasePage):
+    """Содержит локаторы и действия на страницы загрузок sbis.ru/download"""
     PLUGIN_BUTTON = By.XPATH, "//div[@class='controls-TabButton__caption' and text()='СБИС Плагин']"
     PLUGIN_LINK = By.XPATH, "//a[@href='https://update.sbis.ru/Sbis3Plugin/master/win32/sbisplugin-setup-web.exe']"
     PLUGIN_DOWNLOAD_PATH = "Tests/sbisplugin-setup-web.exe"
