@@ -1,12 +1,11 @@
-import logging
-
 import pytest
+import logging
 from selenium import webdriver
 
 
 @pytest.fixture(params=["chrome"], scope="class")
 def init_driver(request):
-    logger = test_logging()
+    logger, handler = test_logging()
     request.cls.my_logger = logger
     if request.param == "chrome":
         web_driver = webdriver.Chrome()
@@ -14,6 +13,10 @@ def init_driver(request):
         request.cls.driver = web_driver
 
         yield
+
+        logger.removeHandler(handler)
+        handler.close()
+
         web_driver.close()
 
 
@@ -27,4 +30,4 @@ def test_logging():
     logger.addHandler(handler)
     logging.getLogger('selenium.webdriver.common').setLevel(logging.INFO)
 
-    return logger
+    return logger, handler

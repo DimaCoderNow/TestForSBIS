@@ -17,6 +17,10 @@ class BasePage:
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
         return element.text
 
+    def get_element(self, by_locator):
+        element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
+        return element
+
     def is_visible(self, by_locator):
         element = WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator))
         return bool(element)
