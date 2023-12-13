@@ -1,17 +1,15 @@
 import os
 import time
+import requests
 
 from selenium.common import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-import requests
-
-"""Данный класс является родителем всех страниц и содержит базовые методы"""
-
 
 class BasePage:
+    """Данный класс является родителем всех страниц и содержит базовые методы"""
 
     def __init__(self, driver):
         self.driver = driver
@@ -29,12 +27,11 @@ class BasePage:
         return element
 
     def is_visible(self, by_locator):
-        element = WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator))
-        return bool(element)
-
-    def get_title(self, title):
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(title))
-        return self.driver.by_locator
+        try:
+            WebDriverWait(self.driver, 15).until(EC.visibility_of_element_located(by_locator))
+            return True
+        except TimeoutException:
+            return False
 
     def get_elements(self, by_locator):
         elements = WebDriverWait(self.driver, 10).until(EC.visibility_of_all_elements_located(by_locator))
@@ -50,7 +47,7 @@ class BasePage:
     def scroll_to_element(self, by_locator):
         element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(by_locator))
         element.location_once_scrolled_into_view
-        time.sleep(1)
+        time.sleep(2)
 
     def click_with_action(self, element):
         time.sleep(1)
@@ -71,3 +68,7 @@ class BasePage:
                 file.write(response.content)
             file_size = round(os.path.getsize(download_path)/(1024.0 ** 2), 2)
             return download_path, file_size
+
+    def next_window_handles(self):
+        window_handles = self.driver.window_handles
+        self.driver.switch_to.window(window_handles[-1])

@@ -30,7 +30,7 @@ class ContactsPage(BasePage):
     def change_region(self):
         self.do_click(self.REGION_CHOOSER)
         self.do_click(self.NEW_REGION)
-        time.sleep(2)
+        time.sleep(3)
 
     def get_first_partner(self):
         return self.get_element_text(self.REGION_PARTNERS)
