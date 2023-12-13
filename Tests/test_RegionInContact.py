@@ -1,3 +1,5 @@
+import time
+
 from Config.config import TestData
 from Tests.test_base import BaseTest
 from Pages.HomePage import HomePage
@@ -7,7 +9,7 @@ from Pages.ContactsPage import ContactsPage
 class TestRegionContact(BaseTest):
 
     def test_region_contact(self):
-        self.my_logger.info("The region in contact test start")
+        self.my_logger.info("*****The region in contact test start*****")
         self.home_page = HomePage(self.driver)
         self.home_page.click_contact()
 
@@ -25,6 +27,7 @@ class TestRegionContact(BaseTest):
         url = self.driver.current_url
 
         self.contacts_page.change_region()
+        time.sleep(1)
 
         check_region_changed = self.contacts_page.current_region() == TestData.CHANGE_REGION
         self.my_logger.info(f"Region is changed : {'OK' if check_region_changed else 'FAILED'}")
@@ -42,3 +45,5 @@ class TestRegionContact(BaseTest):
         assert check_title, "Title not contains new region"
         assert check_different_url, "URL not different"
         assert check_different_partners, "Partners not different"
+
+        self.my_logger.info("The region in contact test successfully")
